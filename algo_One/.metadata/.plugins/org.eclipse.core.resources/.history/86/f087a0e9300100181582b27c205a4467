@@ -1,0 +1,31 @@
+package vora.priya.nqueens;
+
+public class NQueensTester {
+
+	public static void main(String[] args) {
+		start(4);
+	}
+	
+	public static void start(int n) { 
+		Integer[][] dataArray = createBoard(n);
+		
+			for (int i = 0; i < dataArray.length; i++) {
+				for (int j = 0; j < dataArray.length; j++) {
+					System.out.print(dataArray[i][j] + " ");
+				}
+				System.out.println("\n");
+			}
+			
+		
+	}
+
+	private static Integer[][] createBoard(int n) {
+		Integer[][] boardArray = new Integer[n][n];
+		for (int i = 0; i < boardArray.length; i++) {
+			for (int j = 0; j < boardArray.length; j++) {
+				boardArray[i][j] = 0;
+			}
+		}
+		return boardArray;
+	}
+}

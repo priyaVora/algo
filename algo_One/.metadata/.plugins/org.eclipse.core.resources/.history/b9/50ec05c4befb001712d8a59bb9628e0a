@@ -1,0 +1,156 @@
+package sorting.library;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.CancellationException;
+
+public class Sorter<T extends Comparable<? super T>> {
+
+	public static void bubbleSort(Comparable[] dataArray) {
+		boolean changePosition = true;
+
+		for (int j = 1; j < dataArray.length & changePosition; j++) {
+			changePosition = false;
+			for (int i = 0; i < dataArray.length - j; i++) {
+
+				int theState = dataArray[i].compareTo(dataArray[i + 1]);
+
+				if (theState > 0) {
+
+					Comparable tempDataHolder = dataArray[i];
+
+					dataArray[i] = dataArray[i + 1];
+
+					dataArray[i + 1] = tempDataHolder;
+
+					changePosition = true;
+				}
+			}
+		}
+
+		for (Comparable i : dataArray) {
+			System.out.println("Data: " + i);
+		}
+	}
+
+	public static void insertionSort(Comparable[] dataArray) {
+		Comparable comparableValue;
+		for (int i = 1; i < dataArray.length; i++) {
+			for (int currentValue = i; (currentValue > 0)
+					&& (dataArray[currentValue].compareTo(dataArray[currentValue - 1]) < 0); currentValue--) {
+				comparableValue = dataArray[currentValue];
+				dataArray[currentValue] = dataArray[currentValue - 1];
+				dataArray[currentValue - 1] = comparableValue;
+			}
+		}
+		for (Comparable currenValue : dataArray) {
+			System.out.println(currenValue.toString());
+		}
+	}
+
+	public static void selectionSort(Comparable[] dataArray) {
+		int minInteger;
+		Comparable comparableValue;
+		for (int i = 0; i < dataArray.length; i++) {
+			minInteger = i;
+			for (int k = i + 1; k < dataArray.length; k++) {
+				int state = dataArray[minInteger].compareTo(dataArray[k]);
+				if (state > 0) {
+					minInteger = k;
+				}
+			}
+			comparableValue = dataArray[minInteger];
+			dataArray[minInteger] = dataArray[i];
+			dataArray[i] = comparableValue;
+		}
+
+		for (Comparable dataValue : dataArray) {
+			System.out.println("Data: " + dataValue.toString());
+		}
+	}
+
+	public static void mergeSort(Comparable[] dataArray) {
+		mergeSortHelper(dataArray, 0, dataArray.length - 1);
+	}
+
+	private static void mergeSortHelper(Comparable[] dataArray, int startingPoint, int endPoint) {
+		if (startingPoint < endPoint) {
+			int mergeSortMiddle = ((startingPoint + endPoint) / 2);
+			mergeSortHelper(dataArray, startingPoint, mergeSortMiddle);
+			mergeSortHelper(dataArray, mergeSortMiddle + 1, endPoint);
+			merge(dataArray, startingPoint, mergeSortMiddle, endPoint);
+			System.out.println("\n\n");
+			for (Comparable comparable : dataArray) {
+				System.out.print(comparable + " ");
+			}
+		}
+	}
+
+	private static void merge(Comparable[] dataArray, int startingPoint, int mergeSortMiddle, int endPoint) {
+
+		Comparable[] dataHolder = new Comparable[dataArray.length];
+		for (int i = startingPoint; i <= endPoint; i++) {
+			dataHolder[i] = dataArray[i];
+		}
+
+		int leftSide = startingPoint;
+		int rightSide = mergeSortMiddle + 1;
+
+		for (int currentPositionOfList = startingPoint; currentPositionOfList <= endPoint; currentPositionOfList++) {
+
+			int startOFTheRightSide = mergeSortMiddle + 1;
+			int comparison = dataHolder[leftSide].compareTo(dataHolder[rightSide]);
+			if (leftSide == startOFTheRightSide) {
+				dataArray[currentPositionOfList] = dataHolder[rightSide++];
+			} else if (rightSide > endPoint) {
+				dataArray[currentPositionOfList] = dataHolder[leftSide++];
+			} else if ( comparison< 0) {
+				dataArray[currentPositionOfList] = dataHolder[leftSide++];
+			} else {
+				dataArray[currentPositionOfList] = dataHolder[rightSide++];
+			}
+		}
+
+	}
+
+	public static void quickSort(Comparable[] dataArray) {
+
+		quickSortHelper(dataArray, 0, dataArray.length - 1);
+	}
+
+	private static void quickSortHelper(Comparable[] dataArray, int startingPoint, int endPoint) {
+		if (startingPoint < endPoint) {
+			int currentSeparatingPosition = partition(dataArray, startingPoint, endPoint);
+			quickSortHelper(dataArray, startingPoint, currentSeparatingPosition - 1);
+			quickSortHelper(dataArray, currentSeparatingPosition + 1, endPoint);
+		}
+
+		System.out.println("\nData:");
+		for (Comparable comparable : dataArray) {
+			System.out.print(comparable + " ");
+		}
+
+	}
+
+	private static int partition(Comparable[] dataArray, int startingPoint, int endingPoint) {
+		Comparable pivot = dataArray[endingPoint];
+		int i = startingPoint;
+
+		for (int j = startingPoint; j < (dataArray.length - 1); j++) {
+
+			int state = dataArray[j].compareTo(pivot);
+			if (state < 0) {
+				exchangeValues(dataArray, i, j);
+				i++;
+			}
+		}
+		exchangeValues(dataArray, i, endingPoint);
+		return i;
+	}
+
+	private static void exchangeValues(Comparable[] dataArray, int point1, int point2) {
+		Comparable tempHolder = dataArray[point1];
+		dataArray[point1] = dataArray[point2];
+		dataArray[point2] = tempHolder;
+	}
+}

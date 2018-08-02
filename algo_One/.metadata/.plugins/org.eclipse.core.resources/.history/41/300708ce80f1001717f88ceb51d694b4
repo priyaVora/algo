@@ -1,0 +1,50 @@
+
+public class PhoneDirectory {
+
+	public static void main(String[] args) {
+		String s = "/+1-541-754-3010 156 Alphand_St. <J Steeve>\n 133, Green, Rd. <E Kustur> NY-56423\n";
+		System.out.println(phone(s,"5-555-5555"));
+	}
+	
+	
+	
+	 public static  String phone(String strng, String num) {
+			String message = "";
+			String num2 = "+" + num;
+			int count = 0;
+			String[] contacts = strng.split("\n");
+			String contact = null;
+			for (String string : contacts) {
+				if(string.contains(num)) {
+					count++;
+					if(count > 1) { 
+						message = "Error => Too many people: " + num;
+					} else { 
+						contact = string;
+					}
+				}
+			}
+			if(count == 0) {
+				message = "Error => Not found: " + num;
+			} else if (contact != null && !message.contains("Error")) { 
+				String name = null;
+				String addr = null;
+				
+				contact = contact.replaceAll(num, "");
+				//System.out.println(contact + " before grabbing name");
+				if(contact.contains("<") && contact.contains(">"))  {
+					String rawRegex = "<(.*)>";
+					name = contact.substring(contact.indexOf("<", 0)+1, contact.indexOf(">", 0));
+					contact = contact.replaceAll("<" + name + ">", "");
+				}
+				
+				addr = contact.replaceAll("[^A-z0-9\\d\\s.-]", "");
+				addr = addr.replaceAll("_", " ");
+				addr = addr.trim();
+	      		addr = addr.replace("  ", " ");
+				message = "Phone => " + num + ", Name => " + name + ", Address => " + addr;
+			}
+			System.out.println(message + " Known error");
+			return message;
+	    }
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;inpArr&apos; in &apos;Mergesort.mergeSortG(...)&apos; to &apos;dataArray&apos;&#x0D;&#x0A;- Original project: &apos;PraticeMergeSort&apos;&#x0D;&#x0A;- Original element: &apos;Mergesort.mergeSortG(Comparable[], Comparable[], int, int).inpArr&apos;&#x0D;&#x0A;- Renamed element: &apos;inpArr&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;inpArr&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src\/main\/java&lt;{Mergesort.java[Mergesort~mergeSortG~\[QComparable;~\[QComparable;~I~I@inpArr!1390!1408!1403!1408!\[QComparable;!0!true" name="dataArray" references="true" stamp="1516216743258" version="1.0"/>
+</session>

@@ -1,0 +1,54 @@
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class DijkstraAlgorithm<T> {
+	Map<Node<T>, Node<T>> pathMap = new HashMap<Node<T>, Node<T>>();
+	Map<Node<T>, Integer> distanceMap = new HashMap<Node<T>, Integer>();
+	Map<Node<T>, Integer> leftOverNode = new HashMap<Node<T>, Integer>();
+
+	public static void main(String[] args) {
+		DijkstraAlgorithm<Character> algo = new DijkstraAlgorithm<Character>();
+		Node<Character> nodeA = new Node<Character>("A");
+		Node<Character> nodeB = new Node<Character>("B");
+		Node<Character> nodeC = new Node<Character>("C");
+		Node<Character> nodeD = new Node<Character>("D");
+		Node<Character> nodeE = new Node<Character>("E");
+		Node<Character> nodeF = new Node<Character>("F");
+
+		algo.leftOverNode.put(nodeA, Integer.MAX_VALUE);
+		algo.leftOverNode.put(nodeB, Integer.MAX_VALUE);
+		algo.leftOverNode.put(nodeC, Integer.MAX_VALUE);
+		algo.leftOverNode.put(nodeD, Integer.MAX_VALUE);
+		algo.leftOverNode.put(nodeE, Integer.MAX_VALUE);
+		algo.leftOverNode.put(nodeF, Integer.MAX_VALUE);
+
+		System.out.println(nodeA.toString());
+		System.out.println(nodeB.toString());
+		System.out.println(nodeC.toString());
+		System.out.println(nodeD.toString());
+		System.out.println(nodeE.toString());
+		System.out.println(nodeF.toString());
+		System.out.println(" ");
+		
+		algo.hashMaps(algo.leftOverNode);
+
+	}
+
+	public void hashMaps(Map<Node<T>, Integer> map) {
+		    Iterator it = map.entrySet().iterator();
+		    while (it.hasNext()) {
+		        Map.Entry pair = (Map.Entry)it.next();
+		        System.out.println(pair.getKey() + " = " + pair.getValue());
+		        it.remove(); // avoids a ConcurrentModificationException
+		}
+	}
+
+	public void hashMapsNodes(Map<Node<T>, Node<T>> x) {
+
+	}
+}

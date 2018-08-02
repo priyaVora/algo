@@ -1,0 +1,56 @@
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class PhoneDirectory {
+
+	public static void main(String[] args) {
+		String s = "/+1-541-754-3010 156 Alphand_St. <J Steeve>\n 133, Green, Rd. <E Kustur> NY-56423\n";
+		phone(s,"1-541-754-3010");
+	}
+	
+	
+	
+	public static String phone(String s, String num)  {
+		String message = null;
+		String num2 = "+" + num;
+		int count = 0;
+		String[] contacts = s.split("\n");
+		String contact = null;
+		for (String string : contacts) {
+			if(string.contains(num)) {
+				count++;
+				if(count == 0) {
+					message = "Error => Not found: nb";
+				} else if(count > 1) { 
+					message = "Error => Too many people: nb";
+				} else { 
+					contact = string;
+				}
+			}
+		}
+		if (contact != null && !message.contains("Error")) { 
+			String name = null;
+			String addr = null;
+			contact.replaceAll(num2, "");
+			if(contact.contains("<") && contact.contains(">"))  {
+				String rawRegex = "<(.*)>";
+				Pattern p = Pattern.compile(rawRegex);
+				Matcher m = p.matcher(contact);
+				name = m.group(1);
+				contact.replaceAll("<" + name + ">", "");
+			}
+			
+			
+			contact.replaceAll("[^A-z0-9\\d\\s]", "");
+			message = "Phone => " + num + ", Name =>" + name + ", Address =>" + addr;
+			
+		}
+		return message;
+	}
+	
+	public static String contactCount() { 
+		
+		return null;
+	}
+}

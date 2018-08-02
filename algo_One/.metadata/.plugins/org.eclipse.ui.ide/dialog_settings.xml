@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="installedFeatures">
+		<item value="org.eclipse.buildship:2.1.2.v20170807-1324"/>
+		<item value="org.eclipse.eclemma.feature:3.0.1.201711142128"/>
+		<item value="org.eclipse.egit.mylyn:4.9.2.201712150930-r"/>
+		<item value="org.eclipse.egit:4.9.2.201712150930-r"/>
+		<item value="org.eclipse.emf.common:2.13.0.v20170609-0707"/>
+		<item value="org.eclipse.emf.ecore:2.13.0.v20170609-0707"/>
+		<item value="org.eclipse.epp.mpc:1.6.3.v20171122-2010"/>
+		<item value="org.eclipse.help:2.2.102.v20171130-0510"/>
+		<item value="org.eclipse.jdt:3.13.2.v20171130-0906"/>
+		<item value="org.eclipse.jgit:4.9.2.201712150930-r"/>
+		<item value="org.eclipse.m2e.feature:1.8.2.20171007-0217"/>
+		<item value="org.eclipse.m2e.logback.feature:1.8.2.20171007-0217"/>
+		<item value="org.eclipse.mylyn.bugzilla_feature:3.23.1.v20170623-0008"/>
+		<item value="org.eclipse.mylyn.commons.identity:1.15.0.v20170411-1844"/>
+		<item value="org.eclipse.mylyn.commons.notifications:1.15.0.v20170411-1844"/>
+		<item value="org.eclipse.mylyn.commons.repositories.http:1.15.0.v20170411-1844"/>
+		<item value="org.eclipse.mylyn.commons.repositories:1.15.0.v20170411-1844"/>
+		<item value="org.eclipse.mylyn.commons:3.23.0.v20170503-0014"/>
+		<item value="org.eclipse.mylyn.context_feature:3.23.0.v20170414-0629"/>
+		<item value="org.eclipse.mylyn.discovery:3.23.0.v20170411-1844"/>
+		<item value="org.eclipse.mylyn.ide_feature:3.23.0.v20170411-2108"/>
+		<item value="org.eclipse.mylyn.java_feature:3.23.0.v20170411-2108"/>
+		<item value="org.eclipse.mylyn.monitor:3.23.0.v20170411-1844"/>
+		<item value="org.eclipse.mylyn.tasks.ide:3.23.1.v20170623-0008"/>
+		<item value="org.eclipse.mylyn.team_feature:3.23.0.v20170411-2108"/>
+		<item value="org.eclipse.mylyn.wikitext.editors_feature:3.0.19.201711172000"/>
+		<item value="org.eclipse.mylyn.wikitext_feature:3.0.19.201711172000"/>
+		<item value="org.eclipse.mylyn_feature:3.23.1.v20170623-0008"/>
+		<item value="org.eclipse.oomph.p2:1.9.0.v20171221-1140"/>
+		<item value="org.eclipse.oomph.setup.core:1.9.0.v20180310-0545"/>
+		<item value="org.eclipse.oomph.setup:1.9.0.v20180310-0545"/>
+		<item value="org.eclipse.platform:4.7.2.v20171130-0510"/>
+		<item value="org.eclipse.rcp:4.7.2.v20171130-0510"/>
+		<item value="org.eclipse.recommenders.mylyn.rcp.feature:2.5.0.v20171201-1623"/>
+		<item value="org.eclipse.recommenders.rcp.feature:2.5.0.v20171201-1623"/>
+		<item value="org.eclipse.userstorage:1.1.0.v20170526-1605"/>
+		<item value="org.eclipse.wst.xml_ui.feature:3.9.1.v201707252002"/>
+	</list>
+</section>

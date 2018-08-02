@@ -1,0 +1,8 @@
+package vora.priya.mazesolver;
+
+public interface GraphADT<T> {
+
+	public void addVertex(T vertex);
+	public void removeVertex(T vertex);
+	public void addEdge(T vertex);
+}

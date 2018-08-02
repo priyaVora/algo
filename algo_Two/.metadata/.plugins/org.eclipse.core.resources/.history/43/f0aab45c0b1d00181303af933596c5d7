@@ -1,0 +1,17 @@
+package vora.priya.mazesolver;
+
+import java.io.IOException;
+
+public class MazeGeneration<T> {
+	
+	public static void main(String[] args) throws IOException {
+
+		MazeGeneration<String> solver = new MazeGeneration()<String>();
+		solver.start(solver);
+	}
+
+	public void start(MazeSolver<T> maze) throws IOException {
+		this.getData();
+
+	}
+}

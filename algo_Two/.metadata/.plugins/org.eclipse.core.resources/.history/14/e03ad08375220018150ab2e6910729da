@@ -1,0 +1,17 @@
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class DijkstraAlgorithm<T> {
+	Map<Node<T>, Node<T>> pathMap = new HashMap<Node<T>, Node<T>>();
+	Map<Node<T>, Integer> distanceMap = new HashMap<Node<T>, Integer>();
+	Map<Node<T>, Integer> leftOverNode = new HashMap<Node<T>, Integer>();
+	
+	public static void main(String[] args) {
+		
+	}
+
+}

@@ -1,0 +1,129 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class DijkstraAlgorithm<T> {
+	Map<Node<T>, Node<T>> pathMap = new HashMap<Node<T>, Node<T>>();
+	Map<Node<T>, Integer> distanceMap = new HashMap<Node<T>, Integer>();
+	Map<Node<T>, Integer> leftOverNode = new HashMap<Node<T>, Integer>();
+	GraphDijkstra<T> graph = new GraphDijkstra<T>();
+	
+	public static void main(String[] args) {
+		DijkstraAlgorithm<Character> algo = new DijkstraAlgorithm<Character>();
+		Node<Character> nodeA = new Node<Character>("A");
+		Node<Character> nodeB = new Node<Character>("B");
+		Node<Character> nodeC = new Node<Character>("C");
+		Node<Character> nodeD = new Node<Character>("D");
+		Node<Character> nodeE = new Node<Character>("E");
+		Node<Character> nodeF = new Node<Character>("F");
+
+		System.out.println(nodeA.toString());
+		System.out.println(nodeB.toString());
+		System.out.println(nodeC.toString());
+		System.out.println(nodeD.toString());
+		System.out.println(nodeE.toString());
+		System.out.println(nodeF.toString());
+		System.out.println(" ");
+		List<Node<Character>> listOfChar = new ArrayList<Node<Character>>();
+
+		listOfChar.add(nodeA);
+		listOfChar.add(nodeB);
+		listOfChar.add(nodeC);
+		listOfChar.add(nodeD);
+		listOfChar.add(nodeE);
+		listOfChar.add(nodeF);
+		algo.resetLeftOverNodes(listOfChar, 'A');
+		algo.hashMaps(algo.leftOverNode);
+
+
+	}
+
+	public GraphDijkstra<T> calculateShortestPathFromSource(GraphDijkstra<T> graph, Node<T> source) {
+		source.setDistance(0);
+
+		Set<Node<T>> settledNodes = new HashSet();
+		Set<Node<T>> unsettledNodes = new HashSet();
+
+		unsettledNodes.add(source);
+
+		while (unsettledNodes.size() != 0) {
+			Node<T> currentNode = getLowestDistanceNode(unsettledNodes);
+			unsettledNodes.remove(currentNode);
+			for (Entry<Node<T>, Integer> adjacencyPair : currentNode.getAdjacentNodes().entrySet()) {
+				Node adjacentNode = adjacencyPair.getKey();
+				Integer edgeWeight = adjacencyPair.getValue();
+				if (!settledNodes.contains(adjacentNode)) {
+					calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
+					unsettledNodes.add(adjacentNode);
+				}
+			}
+			settledNodes.add(currentNode);
+		}
+		return graph;
+	}
+
+	private void calculateMinimumDistance(Node<T> evaluationNode,
+			  Integer edgeWeigh, Node<T> sourceNode) {
+			    Integer sourceDistance = sourceNode.getDistance();
+			    if (sourceDistance + edgeWeigh < evaluationNode.getDistance()) {
+			        evaluationNode.setDistance(sourceDistance + edgeWeigh);
+			        LinkedList<Node<T>> shortestPath = new LinkedList<Node<T>>(sourceNode.getShortestPath());
+			        shortestPath.add(sourceNode);
+			        evaluationNode.setShortestPath(shortestPath);
+			    }
+			}
+	private Node<T> getLowestDistanceNode(Set<Node<T>> unsettledNodes) {
+		Node<T> lowestDistanceNode = null;
+		int lowestDistance = Integer.MAX_VALUE;
+		for (Node<T> node : unsettledNodes) {
+			int nodeDistance = node.getDistance();
+			if (nodeDistance < lowestDistance) {
+				lowestDistance = nodeDistance;
+				lowestDistanceNode = node;
+			}
+		}
+		return lowestDistanceNode;
+	}
+
+	public void editPathMap(Node<T> node1, Node<T> relationshipWith) {
+		if (!(pathMap.containsKey(node1))) {
+			this.pathMap.put(node1, relationshipWith);
+		} else {
+			this.pathMap.remove(node1);
+			this.pathMap.put(node1, relationshipWith);
+		}
+	}
+
+	public void resetLeftOverNodes(List<Node<T>> nodesList, T srcChar) {
+		for (Node<T> node : nodesList) {
+			if (srcChar != node.getName()) {
+				this.leftOverNode.put(node, Integer.MAX_VALUE);
+			}
+
+			if (node.getName().contains("" + srcChar)) {
+				this.leftOverNode.put(node, 0);
+			}
+		}
+	}
+
+	public void hashMaps(Map<Node<T>, Integer> map) {
+		System.out.println("Print Map: ");
+		Iterator it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			Node<T> temp = (Node<T>) pair.getKey();
+			System.out.println(temp.getName() + " = " + pair.getValue());
+			it.remove(); // avoids a ConcurrentModificationException
+		}
+	}
+
+	public void hashMapsNodes(Map<Node<T>, Node<T>> x) {
+
+	}
+}

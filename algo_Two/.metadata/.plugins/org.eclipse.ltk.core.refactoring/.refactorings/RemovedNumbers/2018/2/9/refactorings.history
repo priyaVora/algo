@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;x1&apos; in &apos;bailey.austin.algo.codewars.multiples.RemoveNumbers.removNb(...)&apos; to &apos;currentMinValue&apos;&#x0D;&#x0A;- Original project: &apos;RemovedNumbers&apos;&#x0D;&#x0A;- Original element: &apos;bailey.austin.algo.codewars.multiples.RemoveNumbers.removNb(long).x1&apos;&#x0D;&#x0A;- Renamed element: &apos;x1&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;x1&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src\/main\/java&lt;bailey.austin.algo.codewars.multiples{RemoveNumbers.java[RemoveNumbers~removNb~J@x1!601!613!606!607!J!0!false" name="currentMinValue" references="true" stamp="1519846273634" version="1.0"/>
+</session>

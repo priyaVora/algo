@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;value&apos; in &apos;algo.data.structures.BinarySearchTree.deleteHelper(...)&apos; to &apos;changeValue&apos;&#x0D;&#x0A;- Original project: &apos;VoraP_AlgoDataStructures&apos;&#x0D;&#x0A;- Original element: &apos;algo.data.structures.BinarySearchTree.deleteHelper(NodeBST&lt;T&gt;, T).value&apos;&#x0D;&#x0A;- Renamed element: &apos;value&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;value&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src\/main\/java&lt;algo.data.structures{BinarySearchTree.java[BinarySearchTree~deleteHelper~QNodeBST\&lt;QT;&gt;;~QT;@value!3633!3683!3635!3639!QT;!0!false" name="changeValue" references="true" stamp="1519697084414" version="1.0"/>
+</session>

@@ -1,0 +1,13 @@
+import java.util.Set;
+
+public class GraphDijkstra {
+		 
+	    private Set<Node<T>> nodes = new HashSet<>();
+	     
+	    public void addNode(Node<T> nodeA) {
+	        nodes.add(nodeA);
+	    }
+	 
+	   
+	}
+}

@@ -1,0 +1,70 @@
+
+
+public class PhoneDirectory {
+
+	public static void main(String[] args) {
+		String s = "/Phone => +8-421-674-8974, Name <Elizabeth Corber>, Address => Via Papa Roma\n";
+		System.out.println(phone(s,"8-421-674-8974"));
+	}
+	
+	
+	
+	 public static  String phone(String strng, String num) {
+	     //System.out.println(strng);
+				String message = "";
+				String num2 = "+" + num;
+				System.out.println(countContains(num, strng) + " Full count presplit");
+				String[] contacts = strng.split("\n");
+				String contact = null;
+				int phoneCount = 0;
+				System.out.println(countContains(num, strng) + " Full count");
+				loop: for (String string : contacts) {
+					phoneCount = phoneCount + countContains(num, string);
+					if(phoneCount == 0) {
+						message = "Error => Not found: " + num;
+					} else if(phoneCount>1) {
+						message = "Error => Too many people: " + num;
+						break loop;
+					} else {
+						if(string.contains(num2)) {
+							contact = string;
+						}
+					}
+				}
+				if (contact != null && phoneCount == 1) { 
+					String name = null;
+					String addr = null;
+					contact = contact.replaceAll(num, "");
+					//System.out.println(contact + " before grabbing name");
+					if(contact.contains("<") && contact.contains(">"))  {
+						String rawRegex = "<(.*)>";
+						name = contact.substring(contact.indexOf("<", 0)+1, contact.indexOf(">", 0));
+						contact = contact.replaceAll("<" + name + ">", "");
+					}
+					
+					addr = contact.replaceAll("[^A-z0-9\\d\\s.-]", "");
+					addr = addr.replaceAll("_", " ");
+					addr = addr.trim();
+		      		addr = addr.replace("  ", " ");
+					message = "Phone => " + num + ", Name => " + name + ", Address => " + addr;
+				}
+				//System.out.println(message + " Known error");
+	      message = message.replace("+", "");
+				return message;
+		    }
+		 
+		 public static int countContains(String needle, String haystack) {
+				//needle is sentence
+				//haystack is the term you wanna count for
+				int count = 0;
+				
+				//System.out.println("Haystack: " + haystack);
+				//System.out.println("Needle: " + needle);
+				
+				if(haystack.contains(needle)) { 
+				//	System.out.println("\tContains: True");
+					count++;
+				} 
+				return count;
+			}
+}

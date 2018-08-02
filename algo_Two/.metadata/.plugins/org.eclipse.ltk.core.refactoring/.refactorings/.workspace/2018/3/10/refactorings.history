@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;VoraP_NetworkArchitect&apos; to &apos;NetworkArchitectProject&apos;" description="Rename resource &apos;VoraP_NetworkArchitect&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/VoraP_NetworkArchitect" name="NetworkArchitectProject" stamp="1520352598586" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;VoraP_NetworkArchitect&apos; to &apos;NetworkArchitect&apos;" description="Rename resource &apos;VoraP_NetworkArchitect&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/VoraP_NetworkArchitect" name="NetworkArchitect" stamp="1520397422112" updateReferences="true"/>
+</session>

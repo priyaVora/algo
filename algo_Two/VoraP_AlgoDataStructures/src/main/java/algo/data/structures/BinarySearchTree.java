@@ -1,0 +1,280 @@
+package algo.data.structures;
+
+import java.awt.HeadlessException;
+import java.util.ArrayList;
+
+public class BinarySearchTree<T> {
+	private static Integer count;
+	private static int preOrderCount = 0;
+	private static int postOrderCount = 0;
+	private static int inOrderCount = 0;
+	private static String preOrderString = "";
+	private static String postOrderString = "";
+	private static String inOrderString = "";
+	public ArrayList<T> preOrderList = new ArrayList<T>();
+	public ArrayList<T> postOrderList = new ArrayList<T>();
+	public ArrayList<T> inOrderList = new ArrayList<T>();
+	private static Integer height;
+	public NodeBST<T> root;
+
+	public BinarySearchTree() {
+		count = 0;
+		height = 0;
+		root = null;
+		preOrderCount = 0;
+		postOrderCount = 0;
+		inOrderCount = 0;
+		preOrderString = "";
+		postOrderString = "";
+		inOrderString = "";
+	}
+
+	public ArrayList<T> temp() {
+		return preOrderList;
+	}
+
+	// a. add(value) - adds a new value to the tree, following the rules of a BST.
+	// Duplicate values go to the right of the parent.
+
+	public void add(T value) {
+		root = insertHelper(root, value);
+		count++;
+	}
+
+	@SuppressWarnings("unchecked")
+	private NodeBST<T> insertHelper(NodeBST<T> node, T data) {
+		if (node == null) {
+			node = new NodeBST<T>(null, null, data);
+			height++;
+		} else {
+			T nodeValue = node.getValue();
+			Comparable<T> comparableData = (Comparable<T>) data;
+			if (comparableData.compareTo(nodeValue) <= 0) {
+				node.left = insertHelper(node.left, data);
+				height = calculatedHeight(node);
+			} else {
+				node.right = insertHelper(node.right, data);
+				height = calculatedHeight(node);
+			}
+		}
+		return node;
+	}
+
+	// b. Contains(value) - returns true if the specified value is in the tree.
+	public boolean contains(T value) {
+		return searchHelper(root, value);
+	}
+
+	@SuppressWarnings("unchecked")
+	private boolean searchHelper(NodeBST<T> rootNode, T value) {
+		boolean findNode = false;
+		while ((rootNode != null) && !findNode) {
+			Comparable<T> getValue = (Comparable<T>) rootNode.getValue();
+
+			Comparable<T> comparison = (Comparable<T>) value;
+			if (comparison.compareTo((T) getValue) < 0)
+				rootNode = rootNode.getLeft();
+			else if (comparison.compareTo((T) getValue) > 0)
+				rootNode = rootNode.getRight();
+			else {
+				findNode = true;
+				break;
+			}
+			findNode = searchHelper(rootNode, value);
+		}
+		return findNode;
+	}
+
+	// c. remove(value) - removes the specified value from the tree if it is
+
+	// c. Remove(value) - removes the specified value from the tree if it is
+	// present, or does nothing if the value is not present. If the value appears
+	// more than once, only the first occurrence of the value is removed. There is
+	// no need to return anything.
+	public void remove(T value) {
+		if (root == null) {
+			// the tree is empty
+		} else if (contains(value) == false) {
+			// the tree does not contain it
+		} else {
+			this.root = deleteHelper(root, value);
+			// this.root = delete(root, value);
+			height--;
+			count--;
+			System.out.println("Value Deleted: " + value);
+		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	private NodeBST<T> deleteHelper(NodeBST<T> root, T value) {
+		if (root == null) {
+			return root;
+		}
+
+		Comparable<T> comparison = (Comparable<T>) value;
+
+		int compare = comparison.compareTo(root.getValue());
+		if (compare > 0) {
+			root.setRight(deleteHelper(root.getRight(), value));
+		} else if (compare < 0) {
+			root.setLeft(deleteHelper(root.getLeft(), value));
+		} else if (root.getLeft() != null || root.getRight() != null) {
+			T changeValue = findMinValue(root.getRight()).getValue();
+			root.setValue(changeValue);
+			root.setRight(deleteHelper(root.getRight(), root.getValue()));
+		} else {
+			if (root.getLeft() != null) {
+				root = root.getLeft();
+			} else {
+				root = root.getRight();
+			}
+		}
+
+		return root;
+	}
+
+	public NodeBST<T> findMinValue(NodeBST<T> root) {
+		if (null == root) {
+			return null;
+		}
+		if (root.getLeft() == null) {
+			return root;
+		}
+		return findMinValue(root.getLeft());
+
+	}
+
+	// d. Clear( ) - removes all values from the tree.
+	public void clear() {
+		count = 0;
+		height = 0;
+		root = null;
+	}
+
+	// e. Count - returns the number of values in the tree. This must be a property
+	// in C# (with a public get and a private/protected set) or a method in Java.
+	public Integer count() {
+		return BinarySearchTree.count;
+	}
+
+	// f. InOrder( ) - returns an in-order string representation of all the values
+	// in the BST
+
+	public String inOrder() {
+		inOrderCount = 0;
+		inOrderString = "";
+		inOrderList = new ArrayList<T>();
+		inOrderHelper(root, "");
+		System.out.println(" ");
+		for (T eachValue : inOrderList) {
+			inOrderString += eachValue;
+			inOrderString += " ";
+		}
+		inOrderString = inOrderString.trim();
+		inOrderString = inOrderString.replace(" ", ", ");
+		return inOrderString;
+	}
+
+	private void inOrderHelper(NodeBST<T> node, String value) {
+		if (node != null) {
+			inOrderHelper(node.getLeft(), value);
+			inOrderList.add(inOrderCount, node.getValue());
+			inOrderCount++;
+			inOrderHelper(node.getRight(), value);
+		}
+	}
+
+	private void preOrderHelper(NodeBST<T> node, String value) {
+		if (node != null) {
+			preOrderList.add(preOrderCount, node.getValue());
+			preOrderCount++;
+			preOrderHelper(node.getLeft(), value);
+			preOrderHelper(node.getRight(), value);
+		}
+	}
+
+	// g. PreOrder( ) - returns a pre-order string representation of all the values
+	// in the BST
+	public String preOrder() {
+		preOrderCount = 0;
+		preOrderString = "";
+		preOrderList = new ArrayList<T>();
+		preOrderHelper(root, "");
+		System.out.println(" ");
+		for (T eachValue : preOrderList) {
+			preOrderString += eachValue;
+			preOrderString += " ";
+		}
+		preOrderString = preOrderString.trim();
+		preOrderString = preOrderString.replace(" ", ", ");
+		return preOrderString;
+	}
+
+	// h. PostOrder() – returns a post-order string representation of all the values
+	// in the BST
+	// i. All of the “order” functions above return a string in the format of “v1,
+	// v2, …, vn”.
+	// ii. The structure of this string is very important. Make sure you have a
+	// comma and space between each value and no trailing comma or spaces.
+
+	public String postOrder() {
+		postOrderCount = 0;
+		postOrderString = "";
+		postOrderList = new ArrayList<T>();
+		postOrderHelper(root, "");
+		System.out.println(" ");
+		for (T eachValue : postOrderList) {
+			postOrderString += eachValue;
+			postOrderString += " ";
+		}
+		postOrderString = postOrderString.trim();
+		postOrderString = postOrderString.replace(" ", ", ");
+		return postOrderString;
+	}
+
+	private void postOrderHelper(NodeBST<T> node, String value) {
+		if (node != null) {
+			postOrderHelper(node.getLeft(), value);
+			postOrderHelper(node.getRight(), value);
+			postOrderList.add(postOrderCount, node.getValue());
+			postOrderCount++;
+		}
+	}
+
+	// i. Height( ) - returns the height of the BST, where the empty tree is 0, the
+	// simple tree is 1.
+
+	public Integer height() {
+		return this.height;
+	}
+
+	public int calculatedHeight(NodeBST<T> node) {
+		if (node == null)
+			return 0;
+		else {
+			int leftSide = calculatedHeight(node.getLeft());
+			int rightSide = calculatedHeight(node.getRight());
+
+			if (leftSide > rightSide) {
+				return leftSide + 1;
+			} else {
+				return rightSide + 1;
+			}
+		}
+	}
+	// j. ToArray() – returns an Array representation of the values using in-order
+	// traversal. If you’re working in Java, make sure to take into account Java’s
+	// type erasure of generics. It will require a little more work on your part to
+	// meet this requirement, but it’s still doable.
+
+	public T[] toArray() {
+		String data = this.inOrder();
+		String[] dataArray = data.split(", ");
+		for (String string : dataArray) {
+			string = string.trim();
+		}
+		T[] array = (T[]) dataArray;
+		return array;
+	}
+}

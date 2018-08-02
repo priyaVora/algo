@@ -1,0 +1,13 @@
+package vora.priya.nqueens;
+
+public class NQueensTester {
+	
+	public static void main(String[] args) {
+		
+	}
+	
+	public Integer[][] createBoard()  {
+		
+		return null;
+	}
+}

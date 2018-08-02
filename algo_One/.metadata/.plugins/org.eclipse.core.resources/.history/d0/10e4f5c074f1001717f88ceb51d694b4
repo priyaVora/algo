@@ -1,0 +1,32 @@
+import java.util.ArrayList;
+
+public class PhoneDirectory {
+
+	public static void main(String[] args) {
+		String s = "/+1-541-754-3010 156 Alphand_St. <J Steeve>\n 133, Green, Rd. <E Kustur> NY-56423\n";
+		phone(s,"1-541-754-3010");
+	}
+	
+	
+	
+	public static String phone(String s, String num)  {
+		String message = null;
+		num += "+" + num;
+		int count = 0;
+		String[] contacts = s.split("\n");
+		for (String string : contacts) {
+			if(string.contains(num)) {
+				count++;
+			}
+		}
+		if(count == 0) {
+			message = "Error => Not found: nb";
+		}
+		return message;
+	}
+	
+	public static String contactCount() { 
+		
+		return null;
+	}
+}

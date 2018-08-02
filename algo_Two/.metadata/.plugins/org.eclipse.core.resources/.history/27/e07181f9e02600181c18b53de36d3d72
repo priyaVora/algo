@@ -1,0 +1,54 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import algo.data.structures.MaxHeapPriorityQueue;
+import algo.data.structures.PQNode;
+
+public class HeapTester {
+	@Test
+	public void DequeueFiveNodePQWithDuplicateNoHeapify() {
+		MaxHeapPriorityQueue pq = CreateFiveNodePQWithDuplicateNoHeapify();
+		// PQNode expected = new PQNode() { Priority = 5, Value = 10 };
+		PQNode expected = new PQNode(5, 10);
+		PQNode actual = pq.dequeue();
+		String expectedString = "5:30, 4:20, 1:50, 2:40";
+		System.out.println("---------------------");
+		System.out.println("Expected: " + expectedString);
+		String actualString = pq.toString();
+		System.out.println("Actual: " + actualString);
+		System.out.println("---------------------");
+
+		assertNotNull(actual);
+		assertEquals(expected.getPriority(), actual.getPriority());
+		assertEquals(expected.getValue(), actual.getValue());
+		assertEquals(expectedString, actualString);
+	}
+
+	private MaxHeapPriorityQueue CreateFiveNodePQWithDuplicateNoHeapify() {
+		MaxHeapPriorityQueue pq = new MaxHeapPriorityQueue();
+		pq.enqueue(5, 10);
+		pq.enqueue(4, 20);
+		pq.enqueue(5, 30);
+		pq.enqueue(2, 40);
+		pq.enqueue(1, 50);
+		System.out.println(" PRINT HEAP WITH INSERT");
+		pq.printMaxHeap();
+
+		return pq;
+	}
+
+	@Test
+	public void ToStringFiveNodePQWithDuplicateNoHeapify() {
+		MaxHeapPriorityQueue pq = CreateFiveNodePQWithDuplicateNoHeapify();
+		String expected = "5:10, 4:20, 5:30, 2:40, 1:50";
+		System.out.println("----------------------");
+		System.out.println("Expected toString: " + expected);
+		String actual = pq.toString();
+		System.out.println("Actual toString: " + actual);
+		System.out.println("----------------------");
+
+		assertEquals(expected, actual);
+	}
+
+}

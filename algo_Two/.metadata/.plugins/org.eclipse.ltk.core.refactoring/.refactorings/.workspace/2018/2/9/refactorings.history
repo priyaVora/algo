@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;NetworkArchitect&apos; to &apos;VoraP_NetworkArchitect&apos;" description="Rename resource &apos;NetworkArchitect&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/NetworkArchitect" name="VoraP_NetworkArchitect" stamp="1519835986253" updateReferences="true"/>
+</session>

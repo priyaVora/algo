@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Algo&apos; to &apos;VoraP_AlgoDataStructures&apos;" description="Rename resource &apos;Algo&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/Algo" name="VoraP_AlgoDataStructures" stamp="1518023988367" updateReferences="true"/>
+</session>

@@ -1,0 +1,80 @@
+package vora.priya.nqueens;
+
+import java.util.ArrayList;
+
+public class NQueensTester {
+	public static int moveCount = 0;
+	public static ArrayList<String>[][] invalidHorizontalPoints;
+	public static ArrayList<String>[][] invalidVerticalPoints;
+	public static ArrayList<String>[][] invalidDiagonalLeftUp_RightDown_Points;
+	public static ArrayList<String>[][] invalidDiagonalRightUp_LeftDown_Points;
+	
+	public static void main(String[] args) {
+		start(4);
+
+	}
+
+	public static void start(int n) {
+		String[][] boardArray = createBoard(n);
+		printBoard(boardArray);
+		placeQueen(boardArray, 0, 0);
+	}
+
+	private static void printBoard(String[][] boardArray) {
+		System.out.println(" ");
+		for (int i = 0; i < boardArray.length; i++) {
+			for (int j = 0; j < boardArray.length; j++) {
+				System.out.print(" " + boardArray[i][j] + " ");
+			}
+			System.out.println("");
+		}
+	}
+
+	private static String[][] createBoard(int n) {
+		String[][] boardArray = new String[n][n];
+		for (int i = 0; i < boardArray.length; i++) {
+			for (int j = 0; j < boardArray.length; j++) {
+				boardArray[i][j] = " __";
+			}
+		}
+		return boardArray;
+	}
+
+	private static void placeQueen(String[][] boardArray, int starting_X_Position, int starting_Y_Position) {
+		if (moveCount == 0) {
+			boardArray[starting_X_Position][starting_Y_Position] = " Q ";
+			
+			int rowLength = boardArray.length; // row
+			int columnLength = boardArray[0].length; // col
+			
+			invalidHorizontalPoints = new ArrayList[rowLength][columnLength];
+			invalidVerticalPoints = new ArrayList[rowLength][columnLength];
+			invalidDiagonalLeftUp_RightDown_Points = new ArrayList[rowLength][rowLength];
+			invalidDiagonalRightUp_LeftDown_Points = new ArrayList[rowLength][rowLength];
+		}
+		printBoard(boardArray);
+	}
+	
+	private static void checkPlacement(String[][] boardArray, int rowPoint, int columnPoint) { 
+		horizontalCheck();
+		verticalCheck();
+		diagonalLeftUp_RightDown();
+		dialgonalRightUp_LeftDown();
+	}
+	
+	private static void horizontalCheck() { 
+		
+	}
+	
+	private static void verticalCheck() { 
+		
+	}
+		
+	private static void diagonalLeftUp_RightDown() { 
+		
+	}
+	
+	private static void dialgonalRightUp_LeftDown() { 
+		
+	}
+}

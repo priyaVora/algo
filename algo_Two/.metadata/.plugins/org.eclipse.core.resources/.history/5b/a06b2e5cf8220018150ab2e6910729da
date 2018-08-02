@@ -1,0 +1,278 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class DijkstraAlgorithm<T> {
+	Map<Node<T>, Node<T>> pathMap = new HashMap<Node<T>, Node<T>>();
+	Map<Node<T>, Integer> distanceMap = new HashMap<Node<T>, Integer>();
+	Map<Node<T>, Integer> leftOverNode = new HashMap<Node<T>, Integer>();
+	GraphDijkstra<T> graph = new GraphDijkstra<T>();
+	static List<Node<String>> listOfChar = new ArrayList<Node<String>>();
+	Node<T> sourceNode = new Node<T>();
+
+	Node<T> currentNode = null;
+
+	public DijkstraAlgorithm(List<Node<String>> listOfChar) {
+	}
+
+	public static void main(String[] args) {
+		DijkstraAlgorithm<String> algo = new DijkstraAlgorithm<String>(null);
+		algo = algo.makeTestData();
+		algo.sourceNode.setName(algo.listOfChar.get(0).getName());
+		algo.sourceNode.setDistance(Integer.MAX_VALUE);
+
+		algo.resetAll(listOfChar);
+		System.out.println("Source of : " + algo.sourceNode.getName());
+		System.out.println("Source Value : " + algo.sourceNode.getDistance());
+		algo.printData();
+
+		algo.setGraph(listOfChar);
+		algo.DijkstraAlgo();
+	}
+
+	public DijkstraAlgorithm<String> makeTestData() {
+		Node<String> nodeA = new Node<String>("A");
+		Node<String> nodeB = new Node<String>("B");
+		Node<String> nodeC = new Node<String>("C");
+		Node<String> nodeD = new Node<String>("D");
+		Node<String> nodeE = new Node<String>("E");
+		Node<String> nodeF = new Node<String>("F");
+		nodeA.addDestination(nodeB, nodeB.getDistance());
+		nodeA.addDestination(nodeE, nodeE.getDistance());
+
+		nodeB.addDestination(nodeA, nodeA.getDistance());
+		nodeB.addDestination(nodeC, nodeC.getDistance());
+
+		nodeC.addDestination(nodeB, nodeB.getDistance());
+		nodeC.addDestination(nodeD, nodeD.getDistance());
+
+		nodeD.addDestination(nodeA, nodeA.getDistance());
+		nodeD.addDestination(nodeC, nodeC.getDistance());
+		nodeD.addDestination(nodeF, nodeF.getDistance());
+
+		nodeE.addDestination(nodeF, nodeF.getDistance());
+		nodeE.addDestination(nodeA, nodeA.getDistance());
+
+		nodeF.addDestination(nodeE, nodeE.getDistance());
+		nodeF.addDestination(nodeD, nodeD.getDistance());
+		List<Node<String>> listOfChar = new ArrayList<Node<String>>();
+		DijkstraAlgorithm<String> algo = new DijkstraAlgorithm<String>(listOfChar);
+		System.out.println(nodeA.toString());
+		System.out.println(nodeB.toString());
+		System.out.println(nodeC.toString());
+		System.out.println(nodeD.toString());
+		System.out.println(nodeE.toString());
+		System.out.println(nodeF.toString());
+		System.out.println(" ");
+		listOfChar.add(nodeA);
+		listOfChar.add(nodeB);
+		listOfChar.add(nodeC);
+		listOfChar.add(nodeD);
+		listOfChar.add(nodeE);
+		listOfChar.add(nodeF);
+		this.listOfChar = listOfChar;
+
+		return algo;
+	}
+
+	public void DijkstraAlgo() {
+		System.out.println("\nSource: " + this.sourceNode.getName());
+		currentNode = sourceNode;
+		System.out.println("Current: " + this.currentNode.getName());
+
+		// explore neighbors of A
+		// leftOverNode.remove(currentNode);
+		// List<Node<String>> nodesList = listOfChar;
+		// this.resetDistanceMap();
+		System.out.println("\n");
+		this.removeFromLeftOverNode();
+	}
+
+	@SuppressWarnings("unlikely-arg-type")
+	public void removeFromLeftOverNode() {
+		leftOverNode.remove(this.currentNode);
+		int count = 0;
+		List<Node<String>> list = listOfChar;
+
+		for (Node<String> node : list) {
+			System.out.println(node.getName());
+			
+		}
+	}
+
+	public void setGraph(List<Node<String>> listofChar) {
+		for (Node<String> node : listofChar) {
+			graph.addNode((Node<T>) node);
+		}
+	}
+
+	@SuppressWarnings("null")
+	public Node<T> extraMin() {
+		// focuses on extracting node with minimum value
+		Node<T> minimumNode = null;
+		Iterator n = leftOverNode.entrySet().iterator();
+		Iterator it = n;
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+
+			Node<T> temp = (Node<T>) pair.getKey();
+			System.out.println(temp.getName() + " = " + pair.getValue());
+			if (minimumNode != null) {
+				if (minimumNode.getDistance() > Integer.parseInt("" + pair.getValue())) {
+					minimumNode.setName(temp.getName());
+					minimumNode.setDistance(Integer.parseInt("" + pair.getValue()));
+				}
+			} else {
+				minimumNode = new Node<T>();
+				minimumNode.setName(temp.getName());
+				minimumNode.setDistance(Integer.parseInt("" + pair.getValue()));
+
+			}
+		}
+
+		System.out
+				.println("\nMinimum Node: " + minimumNode.getName() + " with value of : " + minimumNode.getDistance());
+		System.out.println("---------------------------");
+		return minimumNode;
+	}
+
+	public void printData() {
+		System.out.println("---------------------------");
+		System.out.println("Map + Heap: \n");
+		this.hashMaps(this.leftOverNode);
+		System.out.println("---------------------------");
+		System.out.println("Distance Map: \n");
+		this.hashMaps(this.distanceMap);
+		System.out.println("---------------------------");
+		System.out.println("Path Map: (Parent Map) \n");
+		this.hashMapsNodes(this.pathMap);
+		System.out.println("---------------------------");
+	}
+
+	public void resetAll(List<Node<String>> listOfChar2) {
+		this.resetLeftOverNodes(listOfChar2);
+
+		this.resetDistanceMap(listOfChar2);
+
+		this.resetParentMap(listOfChar2);
+	}
+
+	public GraphDijkstra<T> calculateShortestPathFromSource(GraphDijkstra<T> graph, Node<T> source) {
+		source.setDistance(0);
+
+		Set<Node<T>> settledNodes = new HashSet();
+		Set<Node<T>> unsettledNodes = new HashSet();
+
+		unsettledNodes.add(source);
+
+		while (unsettledNodes.size() != 0) {
+			Node<T> currentNode = getLowestDistanceNode(unsettledNodes);
+			unsettledNodes.remove(currentNode);
+			for (Entry<Node<T>, Integer> adjacencyPair : currentNode.getAdjacentNodes().entrySet()) {
+				Node adjacentNode = adjacencyPair.getKey();
+				Integer edgeWeight = adjacencyPair.getValue();
+				if (!settledNodes.contains(adjacentNode)) {
+					calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
+					unsettledNodes.add(adjacentNode);
+				}
+			}
+			settledNodes.add(currentNode);
+		}
+		return graph;
+	}
+
+	private void calculateMinimumDistance(Node<T> evaluationNode, Integer edgeWeigh, Node<T> sourceNode) {
+		Integer sourceDistance = sourceNode.getDistance();
+		if (sourceDistance + edgeWeigh < evaluationNode.getDistance()) {
+			evaluationNode.setDistance(sourceDistance + edgeWeigh);
+			LinkedList<Node<T>> shortestPath = new LinkedList<Node<T>>(sourceNode.getShortestPath());
+			shortestPath.add(sourceNode);
+			evaluationNode.setShortestPath(shortestPath);
+		}
+	}
+
+	private Node<T> getLowestDistanceNode(Set<Node<T>> unsettledNodes) {
+		Node<T> lowestDistanceNode = null;
+		int lowestDistance = Integer.MAX_VALUE;
+		for (Node<T> node : unsettledNodes) {
+			int nodeDistance = node.getDistance();
+			if (nodeDistance < lowestDistance) {
+				lowestDistance = nodeDistance;
+				lowestDistanceNode = node;
+			}
+		}
+		return lowestDistanceNode;
+	}
+
+	public void editPathMap(Node<T> node1, Node<T> relationshipWith) {
+		if (!(pathMap.containsKey(node1))) {
+			this.pathMap.put(node1, relationshipWith);
+		} else {
+			this.pathMap.remove(node1);
+			this.pathMap.put(node1, relationshipWith);
+		}
+	}
+
+	public void resetLeftOverNodes(List<Node<String>> nodesList) {
+		T srcChar = (T) this.sourceNode.getName();
+		for (Node<String> node : nodesList) {
+			if (!(node.getName().contains("" + srcChar))) {
+				this.leftOverNode.put((Node<T>) node, Integer.MAX_VALUE);
+			} else if (node.getName().contains("" + srcChar)) {
+				this.leftOverNode.put((Node<T>) node, 0);
+			}
+		}
+
+		this.sourceNode = this.extraMin();
+	}
+
+	public void resetDistanceMap(List<Node<String>> nodesList) {
+		T srcChar = (T) this.sourceNode.getName();
+		distanceMap.clear();
+		for (Node<String> node : nodesList) {
+			if (!(node.getName().contains("" + srcChar))) {
+			} else if (node.getName().contains("" + srcChar)) {
+				this.distanceMap.put((Node<T>) node, 0);
+			}
+		}
+	}
+
+	private void resetParentMap(List<Node<String>> listOfChar) {
+		T srcChar = (T) this.sourceNode.getName();
+		pathMap.clear();
+		for (Node<String> node : listOfChar) {
+			if (!(node.getName().contains("" + srcChar))) {
+			} else if (node.getName().contains("" + srcChar)) {
+				this.pathMap.put((Node<T>) node, null);
+			}
+		}
+	}
+
+	public void hashMaps(Map<Node<T>, Integer> map) {
+		Iterator<Entry<Node<T>, Integer>> n = map.entrySet().iterator();
+		Iterator it = n;
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			Node<T> temp = (Node<T>) pair.getKey();
+			System.out.println(temp.getName() + " = " + pair.getValue());
+			// it.remove(); // avoids a ConcurrentModificationException
+		}
+	}
+
+	public void hashMapsNodes(Map<Node<T>, Node<T>> x) {
+		Iterator<Entry<Node<T>, Node<T>>> n = x.entrySet().iterator();
+		Iterator it = n;
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			Node<T> temp = (Node<T>) pair.getKey();
+			System.out.println(temp.getName() + " = " + pair.getValue());
+			// it.remove(); // avoids a ConcurrentModificationException
+		}
+	}
+}

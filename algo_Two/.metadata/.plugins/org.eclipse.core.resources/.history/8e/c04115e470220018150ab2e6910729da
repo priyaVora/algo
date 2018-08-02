@@ -1,0 +1,36 @@
+import java.util.HashSet;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class DijkstraAlgorithm<T> {
+
+	public GraphDijkstra<T> calculateShortestPathFromSource(GraphDijkstra<T> graph, Node<T> source) {
+	    source.setDistance(0);
+	 
+	    Set<Node<T>> settledNodes = new HashSet<Node<T>>();
+	    Set<Node<T>> unsettledNodes = new HashSet<Node<T>>();
+	 
+	    unsettledNodes.add(source);
+	 
+	    while (unsettledNodes.size() != 0) {
+	        Node<T> currentNode = getLowestDistanceNode(unsettledNodes);
+	        unsettledNodes.remove(currentNode);
+	        for (Entry<Node<T>, Integer> adjacencyPair: 
+	          currentNode.getAdjacentNodes().entrySet()) {
+	            Node<T> adjacentNode = adjacencyPair.getKey();
+	            Integer edgeWeight = adjacencyPair.getValue();
+	            if (!settledNodes.contains(adjacentNode)) {
+	                calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
+	                unsettledNodes.add(adjacentNode);
+	            }
+	        }
+	        settledNodes.add(currentNode);
+	    }
+	    return graph;
+	}
+
+	private Node getLowestDistanceNode(Set<Node<T>> unsettledNodes) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

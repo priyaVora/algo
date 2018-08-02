@@ -1,0 +1,87 @@
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class DijkstraAlgorithm<T> {
+
+	
+	public static void main(String[] args) {
+		Node nodeA = new Node("A");
+		Node nodeB = new Node("B");
+		Node nodeC = new Node("C");
+		Node nodeD = new Node("D"); 
+		Node nodeE = new Node("E");
+		Node nodeF = new Node("F");
+		 
+		nodeA.addDestination(nodeB, 10);
+		nodeA.addDestination(nodeC, 15);
+		 
+		nodeB.addDestination(nodeD, 12);
+		nodeB.addDestination(nodeF, 15);
+		 
+		nodeC.addDestination(nodeE, 10);
+		 
+		nodeD.addDestination(nodeE, 2);
+		nodeD.addDestination(nodeF, 1);
+		 
+		nodeF.addDestination(nodeE, 5);
+		 
+		GraphDijkstra<Character> graph = new GraphDijkstra<Character>();
+		DijkstraAlgorithm<Character>  dAlgo = new DijkstraAlgorithm<Character>();
+		graph.addNode(nodeA);
+		graph.addNode(nodeB);
+		graph.addNode(nodeC);
+		graph.addNode(nodeD);
+		graph.addNode(nodeE);
+		graph.addNode(nodeF);
+		 
+		graph = dAlgo.calculateShortestPathFromSource(graph, nodeA);
+	}
+	public GraphDijkstra<T> calculateShortestPathFromSource(GraphDijkstra<T> graph, Node<T> source) {
+		source.setDistance(0);
+
+		Set<Node<T>> settledNodes = new HashSet<Node<T>>();
+		Set<Node<T>> unsettledNodes = new HashSet<Node<T>>();
+
+		unsettledNodes.add(source);
+
+		while (unsettledNodes.size() != 0) {
+			Node<T> currentNode = getLowestDistanceNode(unsettledNodes);
+			unsettledNodes.remove(currentNode);
+			for (Entry<Node<T>, Integer> adjacencyPair : currentNode.getAdjacentNodes().entrySet()) {
+				Node<T> adjacentNode = adjacencyPair.getKey();
+				Integer edgeWeight = adjacencyPair.getValue();
+				if (!settledNodes.contains(adjacentNode)) {
+					calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
+					unsettledNodes.add(adjacentNode);
+				}
+			}
+			settledNodes.add(currentNode);
+		}
+		return graph;
+	}
+
+	private Node<T> getLowestDistanceNode(Set<Node<T>> unsettledNodes) {
+		Node<T> lowestDistanceNode = null;
+		int lowestDistance = Integer.MAX_VALUE;
+		for (Node<T> node : unsettledNodes) {
+			int nodeDistance = node.getDistance();
+			if (nodeDistance < lowestDistance) {
+				lowestDistance = nodeDistance;
+				lowestDistanceNode = node;
+			}
+		}
+		return lowestDistanceNode;
+	}
+
+	private void calculateMinimumDistance(Node<T> evaluationNode, Integer edgeWeigh, Node sourceNode) {
+		Integer sourceDistance = sourceNode.getDistance();
+		if (sourceDistance + edgeWeigh < evaluationNode.getDistance()) {
+			evaluationNode.setDistance(sourceDistance + edgeWeigh);
+			LinkedList<Node<T>> shortestPath = new LinkedList<Node<T>>(sourceNode.getShortestPath());
+			shortestPath.add(sourceNode);
+			evaluationNode.setShortestPath(shortestPath);
+		}
+	}
+}

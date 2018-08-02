@@ -1,0 +1,67 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class PhoneDirectory {
+
+	public static void main(String[] args) {
+		String s = "<Anastasia> +48-421-674-8974 Via Quirinal Roma\n <P Salinger> Main Street, +1-098-512-2222, Denver\n";
+		System.out.println(phone(s,"48-421-674-8974"));
+	}
+	
+	
+	
+	 public static  String phone(String strng, String num) {
+			String message = "";
+			String num2 = "+" + num;
+			int count = 0;
+			String[] contacts = strng.split("\n");
+			String contact = null;
+			for (String string : contacts) {
+				int phoneCount = countContains(num, strng);
+				if(phoneCount == 0) {
+					message = "Error => Not found: " + num;
+				} else if(phoneCount> 1) {
+					message = "Error => Too many people: " + num;
+				} else {
+					if(string.contains(num2)) {
+						contact = string;
+					}
+				}
+			}
+			if (contact != null) { 
+				String name = null;
+				String addr = null;
+				
+				contact = contact.replaceAll(num, "");
+				//System.out.println(contact + " before grabbing name");
+				if(contact.contains("<") && contact.contains(">"))  {
+					String rawRegex = "<(.*)>";
+					name = contact.substring(contact.indexOf("<", 0)+1, contact.indexOf(">", 0));
+					contact = contact.replaceAll("<" + name + ">", "");
+				}
+				
+				addr = contact.replaceAll("[^A-z0-9\\d\\s.-]", "");
+				addr = addr.replaceAll("_", " ");
+				addr = addr.trim();
+	      		addr = addr.replace("  ", " ");
+				message = "Phone => " + num + ", Name => " + name + ", Address => " + addr;
+			}
+			System.out.println(message + " Known error");
+			return message;
+	    }
+	 
+	 public static int countContains(String needle, String haystack) {
+			//needle is sentence
+			//haystack is the term you wanna count for
+			int count = 0;
+			
+			Pattern pattern = Pattern.compile(haystack);
+			Matcher match = pattern.matcher(needle);
+			
+			while(match.find()) { 
+				count++;
+			}
+			
+			return count;
+		}
+}

@@ -1,0 +1,40 @@
+package vora.priya.nqueens;
+
+public class NQueensTester {
+
+	public static void main(String[] args) {
+		start(4);
+		playGame(0, 0);
+	}
+
+	public static void start(int n) {
+		String[][] boardArray = createBoard(n);
+		printBoard(boardArray);
+	}
+
+	private static void printBoard(String[][] boardArray) {
+		System.out.println(" ");
+		for (int i = 0; i < boardArray.length; i++) {
+			for (int j = 0; j < boardArray.length; j++) {
+				System.out.print(" " + boardArray[i][j] + " ");
+			}
+			System.out.println("");
+		}
+	}
+
+	private static String[][] createBoard(int n) {
+		String[][] boardArray = new String[n][n];
+		for (int i = 0; i < boardArray.length; i++) {
+			for (int j = 0; j < boardArray.length; j++) {
+				boardArray[i][j] = "__";
+			}
+		}
+		return boardArray;
+	}
+
+	private static void playGame(String[][] boardArray, int starting_X_Position, int starting_Y_Position) {
+		
+		boardArray[starting_X_Position][starting_Y_Position] = "X";
+
+	}
+}

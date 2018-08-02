@@ -1,0 +1,26 @@
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map.Entry;
+import java.util.Set;
+
+public class DijkstraAlgorithm<T> {
+
+	
+	public static void main(String[] args) {
+		
+	}
+	public GraphDijkstra<T> calculateShortestPathFromSource(GraphDijkstra<T> graph, Node<T> source) {
+		
+		return graph;
+
+	}
+
+	private Node<T> getLowestDistanceNode(Set<Node<T>> unsettledNodes) {
+		
+		return null;
+	}
+
+	private void calculateMinimumDistance(Node<T> evaluationNode, Integer edgeWeigh, Node sourceNode) {
+		
+	}
+}

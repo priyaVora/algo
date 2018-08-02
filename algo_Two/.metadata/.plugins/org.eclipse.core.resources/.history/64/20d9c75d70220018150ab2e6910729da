@@ -1,0 +1,25 @@
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+public class Node<T> {
+     
+    private String name;
+     
+    private List<Node<T>> shortestPath = new LinkedList<>();
+     
+    private Integer distance = Integer.MAX_VALUE;
+     
+    Map<Node<T>, Integer> adjacentNodes = new HashMap<Node<T>, Integer>();
+ 
+    public void addDestination(Node destination, int distance) {
+        adjacentNodes.put(destination, distance);
+    }
+  
+    public Node(String name) {
+        this.name = name;
+    }
+     
+    // getters and setters
+}

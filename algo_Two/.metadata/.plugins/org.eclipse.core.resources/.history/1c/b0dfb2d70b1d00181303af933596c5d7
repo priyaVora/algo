@@ -1,0 +1,81 @@
+package vora.priya.mazesolver;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class MazeGeneration<T> {
+
+	public static void main(String[] args) throws IOException {
+
+		MazeGeneration<String> solver = new MazeGeneration<String>();
+		solver.start(solver);
+	}
+
+	public void start(MazeGeneration<T> maze) throws IOException {
+		this.getData();
+
+	}
+
+	private static String promptUserFilePath() {
+		boolean endLoop = false;
+		String path = null;
+		while (endLoop == false) {
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("Please enter a valid path to a file: \n");
+			String line;
+			try {
+				line = br.readLine().trim();
+				path = line;
+				File file = new File(path);
+				if (!file.isDirectory()) {
+					if (file.exists()) {
+						endLoop = true;
+					}
+				} else {
+					endLoop = false;
+				}
+				// System.out.println("\nUser Path: " + path);
+			} catch (IOException e) {
+
+				endLoop = false;
+				e.printStackTrace();
+			}
+		}
+		return path;
+	}
+
+	private ArrayList<Node> getData() throws IOException {
+		int lineCount = 0;
+		String pathToFile = promptUserFilePath();
+		File file = new File(pathToFile);
+
+		BufferedReader br = new BufferedReader(new FileReader(file));
+		ArrayList<Node> itemsList = new ArrayList<Node>();
+		String st;
+		boolean valid = false;
+		int mazeCount = 1;
+		int printCount = 0;
+		while ((st = br.readLine()) != null) {
+			if (!(st.contains("//"))) {
+				st = st.trim();
+				System.out.println(st);
+				if (st.isEmpty()) {
+
+					System.out.println("------------");
+				} else {
+
+				}
+				lineCount++;
+
+			}
+
+		}
+		br.close();
+		return itemsList;
+	}
+}

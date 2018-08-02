@@ -1,0 +1,22 @@
+
+public class PhoneDirectory {
+
+	public static void main(String[] args) {
+		String s = "/+1-541-754-3010 156 Alphand_St. <J Steeve>\n 133, Green, Rd. <E Kustur> NY-56423";
+		phone(s,"1-541-754-3010");
+	}
+	
+	
+	
+	public static String phone(String s, String num)  {
+		s += "+" + s;
+		
+		
+		
+		return null;
+	}
+	
+	public static String readline() { 
+		
+	}
+}

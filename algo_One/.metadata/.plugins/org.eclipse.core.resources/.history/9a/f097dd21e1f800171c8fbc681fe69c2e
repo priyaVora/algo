@@ -1,0 +1,63 @@
+package sorting.library;
+
+import java.util.Arrays;
+
+public class Sorter<T extends Comparable<? super T>> {
+	public static void bubbleSort(Comparable[] dataArray) {
+		boolean changePosition = true;
+
+		for (int j = 1; j < dataArray.length & changePosition; j++) {
+			changePosition = false;
+			for (int i = 0; i < dataArray.length - j; i++) {
+
+				if (dataArray[i].compareTo(dataArray[i + 1]) > 0) {
+
+					Comparable tempDataHolder = dataArray[i];
+
+					dataArray[i] = dataArray[i + 1];
+
+					dataArray[i + 1] = tempDataHolder;
+
+					changePosition = true;
+				}
+			}
+		}
+		for (Comparable i : dataArray) {
+			System.out.println("Data: " + i);
+		}
+	}
+
+	public static void insertionSort(Comparable[] dataArray) {
+		Comparable comparableValue;
+		for (int i = 1; i < dataArray.length; i++) {
+			for (int k = i; (k > 0) && (dataArray[k].compareTo(dataArray[k - 1]) < 0); k--) {
+				comparableValue = dataArray[k];
+				dataArray[k] = dataArray[k - 1];
+				dataArray[k - 1] = comparableValue;
+			}
+		}
+		for (Comparable currenValue : dataArray) {
+			System.out.println(currenValue.toString());
+		}
+	}
+
+	public static void selectionSort(Comparable[] dataArray) {
+		int minInteger;
+		Comparable comparableValue;
+		for (int i = 0; i < dataArray.length; i++) {
+			minInteger = i;
+			for (int k = i + 1; k < dataArray.length; k++) {
+				if (dataArray[minInteger].compareTo(dataArray[k]) > 0) {
+					minInteger = k;
+				}
+			}
+			comparableValue = dataArray[minInteger];
+			dataArray[minInteger] = dataArray[i];
+			dataArray[i] = comparableValue;
+		}
+
+		for (Comparable dataValue : dataArray) {
+			System.out.println("Data: " + dataValue.toString());
+		}
+	}
+}

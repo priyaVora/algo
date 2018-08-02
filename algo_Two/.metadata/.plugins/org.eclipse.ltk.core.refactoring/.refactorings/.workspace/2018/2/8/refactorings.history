@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Applied_Propositional_Logic&apos; to &apos;VorapP_SubnetMaskUtility&apos;" description="Rename resource &apos;Applied_Propositional_Logic&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/Applied_Propositional_Logic" name="VorapP_SubnetMaskUtility" stamp="1519158834681" updateReferences="true"/>
+</session>
